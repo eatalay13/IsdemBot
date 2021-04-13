@@ -4,12 +4,11 @@ namespace IsdemBot.Managers
 {
     public static class RandomTime
     {
+        static readonly Random _random = new();
         public static string Create(DateTime dateTime)
         {
-            var random = new Random();
-
-            var hour = random.Next(10, 16);
-            var minute = random.Next(0, 60);
+            var hour = _random.Next(10, 16);
+            var minute = _random.Next(0, 60);
 
             var strMinute = minute.ToString();
 

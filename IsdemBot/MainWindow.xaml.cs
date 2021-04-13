@@ -115,8 +115,8 @@ namespace IsdemBot
                 }
                 catch (Exception e)
                 {
-                    ShowError(e.Message);
-                    break;
+                    Log(e.Message);
+                    continue;
                 }
                 finally
                 {

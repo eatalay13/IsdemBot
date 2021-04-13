@@ -50,6 +50,23 @@ namespace IsdemBot.Managers
             }
         }
 
+        private bool DateTimeNotValid
+        {
+            get
+            {
+                try
+                {
+                    var errorMsg = _driver.FindElement(By.Id("faces:unitIdentifierMessage")).Text;
+
+                    return !string.IsNullOrWhiteSpace(errorMsg);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
         private bool IsGetUserData
         {
             get
@@ -139,7 +156,7 @@ namespace IsdemBot.Managers
             {
                 if (TcNoIsNotValid)
                 {
-                    PageForNewData(true);
+                    PageForNewData(date, true);
                     return;
                 }
 
@@ -179,10 +196,13 @@ namespace IsdemBot.Managers
 
             //Denetim Tarihi
             _driver.FindElement(By.Id("faces:denunciationTime_input")).SendKeys(RandomTime.Create(date));
+
+            Thread.Sleep(500);
+
 #if DEBUG
-            PageForNewData(true);
+            PageForNewData(date, true);
 #else
-            PageForNewData();
+            PageForNewData(date);
 #endif
         }
 
@@ -191,12 +211,21 @@ namespace IsdemBot.Managers
             _driver.Quit();
         }
 
-        private void PageForNewData(bool isPageRefresh = false)
+        private void PageForNewData(DateTime date, bool isPageRefresh = false)
         {
+            error:
             if (isPageRefresh)
                 _driver.FindElement(By.Id("faces:yenile")).Click();
             else
                 _driver.FindElement(By.Id("faces:save")).Click();
+
+            if (DateTimeNotValid)
+            {
+                //Denetim Tarihi
+                _driver.FindElement(By.Id("faces:denunciationTime_input")).SendKeys(RandomTime.Create(date));
+                Thread.Sleep(500);
+                goto error;
+            }
 
             while (!SendDataIsComplete)
                 Thread.Sleep(1000);

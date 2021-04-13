@@ -21,10 +21,10 @@ namespace IsdemBot.Managers
 
             for (int row = 1; row <= rowCount; row++)
             {
-                for (int col = 1; col <= columnCount; col++)
-                {
-                    tcNoList.Add(worksheet.Cells[row, col].Value.ToString());
-                }
+                tcNoList.Add(worksheet.Cells[row, 1].Value.ToString());
+                //for (int col = 1; col <= columnCount; col++)
+                //{
+                //}
             }
 
             return tcNoList;

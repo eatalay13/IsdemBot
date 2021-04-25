@@ -9,7 +9,7 @@ namespace IsdemBot.Managers
     {
         private static string _lastIndexTxtPath = "lastIndex.txt";
 
-        public static IList<string> GetExcelList(string filePath)
+        public static IList<string> GetExcelList(string filePath, Models.ExcelColumn column)
         {
             List<string> tcNoList = new List<string>();
 
@@ -21,7 +21,7 @@ namespace IsdemBot.Managers
 
             for (int row = 1; row <= rowCount; row++)
             {
-                tcNoList.Add(worksheet.Cells[row, 1].Value.ToString());
+                tcNoList.Add(worksheet.Cells[row, (int)column].Value.ToString());
                 //for (int col = 1; col <= columnCount; col++)
                 //{
                 //}

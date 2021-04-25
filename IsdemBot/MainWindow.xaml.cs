@@ -77,10 +77,13 @@ namespace IsdemBot
             string strUserName = string.Empty;
             string strPassword = string.Empty;
 
+            ExcelColumn excelColumn = ExcelColumn.A;
+
             Application.Current.Dispatcher.Invoke(() =>
             {
                 strUserName = tbxUserName.Text;
                 strPassword = tbxPassword.Password;
+                excelColumn = Enum.Parse<ExcelColumn>(cbxExcelColumn.SelectedValue.ToString());
             });
 
             Log("Sisteme Giriş Yapılıyor...");
@@ -92,11 +95,15 @@ namespace IsdemBot
             });
 
             Log("Excelden Veriler Okunuyor");
-            var list = DataManager.GetExcelList(_excelFilePath);
+            var list = DataManager.GetExcelList(_excelFilePath, excelColumn);
 
             Log($"Excelden {list.Count} adet Kimlik numarası okundu.");
 
-            int lastIndex = DataManager.ReadLastIndex();
+            int lastIndex = 0;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                lastIndex = int.Parse(tbxIndexNo.Text) - 1;
+            });
 
             Log($"{lastIndex + 1}. sıradan başlayarak devam ediyor.");
 
@@ -108,6 +115,7 @@ namespace IsdemBot
                     _botManager.SendData(list[index], selectedDate);
                     Log($"{list[index]} Kimlik numarası başarıyla kayıt edildi.");
                     Log($"İşlenen: {index + 1}/{list.Count} | kalan:{list.Count - (index + 1)} ");
+
                     consoleScroll.Dispatcher.Invoke(() =>
                     {
                         consoleScroll.ScrollToEnd();
@@ -116,12 +124,17 @@ namespace IsdemBot
                 catch (Exception e)
                 {
                     Log(e.Message);
-                    continue;
+                    _botManager.PageReload();
                 }
                 finally
                 {
                     DataManager.SetLastIndex(index);
                     lastIndex = index;
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        tbxIndexNo.Text = (lastIndex + 1).ToString();
+                    });
                 }
             }
 
@@ -163,6 +176,16 @@ namespace IsdemBot
             tbxPassword.Password = LoginUser.DefaultUser.Password;
 
             datePicker.DisplayDateEnd = DateTime.Now;
+            tbxIndexNo.Text = (DataManager.ReadLastIndex() + 1).ToString();
+
+            var enumList = Enum.GetNames<ExcelColumn>();
+
+            foreach (var col in enumList)
+            {
+                cbxExcelColumn.Items.Add(col);
+            }
+
+            cbxExcelColumn.SelectedIndex = 0;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -219,6 +242,7 @@ namespace IsdemBot
         private void btnIndexReset_Click(object sender, RoutedEventArgs e)
         {
             DataManager.SetLastIndex(0);
+            tbxIndexNo.Text = "1";
             MessageBox.Show("Index Sıfırlandı", "Bilgi", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }

@@ -58,7 +58,7 @@ namespace IsdemBot.Managers
                 {
                     var errorMsg = _driver.FindElement(By.Id("faces:unitIdentifierMessage")).Text;
 
-                    return !string.IsNullOrWhiteSpace(errorMsg);
+                    return !string.IsNullOrWhiteSpace(errorMsg) && errorMsg.Contains("Denetim zamanını girilmesi zorunludur");
                 }
                 catch
                 {
@@ -192,7 +192,7 @@ namespace IsdemBot.Managers
                 .SendKeys("HÜKÜMET KONAĞI")
                 .Perform();
 
-            Thread.Sleep(300);
+            Thread.Sleep(500);
 
             //Denetim Tarihi
             _driver.FindElement(By.Id("faces:denunciationTime_input")).SendKeys(RandomTime.Create(date));
@@ -211,7 +211,15 @@ namespace IsdemBot.Managers
             _driver.Quit();
         }
 
-        private void PageForNewData(DateTime date, bool isPageRefresh = false)
+        public void PageReload()
+        {
+            _driver.FindElement(By.Id("faces:yenile")).Click();
+
+            while (!SendDataIsComplete)
+                Thread.Sleep(1000);
+        }
+
+        public void PageForNewData(DateTime date, bool isPageRefresh = false)
         {
             error:
             if (isPageRefresh)
@@ -219,16 +227,18 @@ namespace IsdemBot.Managers
             else
                 _driver.FindElement(By.Id("faces:save")).Click();
 
-            if (DateTimeNotValid)
-            {
-                //Denetim Tarihi
-                _driver.FindElement(By.Id("faces:denunciationTime_input")).SendKeys(RandomTime.Create(date));
-                Thread.Sleep(500);
-                goto error;
-            }
-
             while (!SendDataIsComplete)
+            {
                 Thread.Sleep(1000);
+
+                if (DateTimeNotValid)
+                {
+                    //Denetim Tarihi
+                    _driver.FindElement(By.Id("faces:denunciationTime_input")).SendKeys(RandomTime.Create(date));
+                    Thread.Sleep(500);
+                    goto error;
+                }
+            }
         }
     }
 }

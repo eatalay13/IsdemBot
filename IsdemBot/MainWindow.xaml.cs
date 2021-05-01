@@ -76,6 +76,7 @@ namespace IsdemBot
 
             string strUserName = string.Empty;
             string strPassword = string.Empty;
+            string strAdres = string.Empty;
 
             ExcelColumn excelColumn = ExcelColumn.A;
 
@@ -83,6 +84,7 @@ namespace IsdemBot
             {
                 strUserName = tbxUserName.Text;
                 strPassword = tbxPassword.Password;
+                strAdres = tbxAdres.Text;
                 excelColumn = Enum.Parse<ExcelColumn>(cbxExcelColumn.SelectedValue.ToString());
             });
 
@@ -112,7 +114,7 @@ namespace IsdemBot
                 try
                 {
                     _manualResetEvent.WaitOne();
-                    _botManager.SendData(list[index], selectedDate);
+                    _botManager.SendData(list[index], strAdres, selectedDate);
                     Log($"{list[index]} Kimlik numarası başarıyla kayıt edildi.");
                     Log($"İşlenen: {index + 1}/{list.Count} | kalan:{list.Count - (index + 1)} ");
 

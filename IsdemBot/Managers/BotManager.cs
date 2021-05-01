@@ -134,7 +134,7 @@ namespace IsdemBot.Managers
             Thread.Sleep(2000);
         }
 
-        public void SendData(string tcNo, DateTime date)
+        public void SendData(string tcNo,string adres, DateTime date)
         {
             _driver.FindElement(By.Id("faces:denunciationTypes")).Click();
 
@@ -189,7 +189,7 @@ namespace IsdemBot.Managers
                 .KeyDown(Keys.Control)
                 .SendKeys("a")
                 .KeyUp(Keys.Control)
-                .SendKeys("HÜKÜMET KONAĞI")
+                .SendKeys(adres)
                 .Perform();
 
             Thread.Sleep(500);

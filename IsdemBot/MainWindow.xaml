@@ -18,22 +18,25 @@
         <TextBox x:Name="tbxUserName" Margin="91,15,5,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
         <PasswordBox x:Name="tbxPassword" Margin="91,40,5,0" VerticalAlignment="Top" Height="24"/>
         <DatePicker x:Name="datePicker" Margin="91,65,5,0" VerticalAlignment="Top" Height="24"/>
-        <Button x:Name="btnStart" Content="Başlat" Click="button_Click" Width="Auto" Margin="210,188,5,0" Height="32" VerticalAlignment="Top"/>
+        <Button x:Name="btnStart" Content="Başlat" Click="button_Click" Width="Auto" Margin="210,209,5,0" Height="32" VerticalAlignment="Top"/>
         <Label x:Name="label" Content="Powered by Emrah Atalay" Margin="5,0,5,1" VerticalAlignment="Bottom" FontFamily="Boogaloo" MouseDown="label_MouseDown" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" MouseLeave="label_MouseLeave" MouseEnter="label_MouseEnter"/>
         <Label x:Name="label1" Content="Şifre:" HorizontalAlignment="Left" Margin="0,41,0,0" VerticalAlignment="Top" Width="60" Height="22"/>
         <Label x:Name="label1_Copy" Content="Kullanıcı:" HorizontalAlignment="Left" Margin="0,15,0,0" VerticalAlignment="Top" Width="60" Height="22"/>
         <Label x:Name="label1_Copy1" Content="Tarih:" HorizontalAlignment="Left" Margin="0,67,0,0" VerticalAlignment="Top" Width="60" Height="22"/>
-        <Button x:Name="btnPause" Content="Duraklat" Click="button2_Click" Width="Auto" Margin="210,240,5,0" Height="32" VerticalAlignment="Top" IsCancel="True" Visibility="Visible" IsEnabled="False"/>
+        <Button x:Name="btnPause" Content="Duraklat" Click="button2_Click" Width="Auto" Margin="210,254,5,0" Height="32" VerticalAlignment="Top" IsCancel="True" Visibility="Visible" IsEnabled="False"/>
         <ScrollViewer VerticalAlignment="Top" Margin="0,291,0,0" x:Name="consoleScroll" Height="270">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Stretch" Margin="5,0,0,0" Text="Hoşgeldiniz" TextWrapping="Wrap" VerticalAlignment="Stretch" Cursor="Pen" Background="#FF2E2E2E" FontFamily="Consolas" TextAlignment="Left" AutomationProperties.HelpText="Konsol bilgilendirme ekranı" Foreground="#FF84C536" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" Padding="3,3,3,3"/>
         </ScrollViewer>
         <Image x:Name="image" Height="60" Margin="6,566,6,0" VerticalAlignment="Top" Source="/ISDEM_logo_01.png" Stretch="Uniform" StretchDirection="Both"/>
-        <Button x:Name="btnExcelFile" Content="Excel Dosyasını Seç" Width="Auto" Margin="5,188,210,0" Height="32" VerticalAlignment="Top" Click="btnExcelFile_Click" FontSize="12"/>
-        <Button x:Name="btnIndexReset" Content="Index Sıfırla" Width="Auto" Margin="5,240,210,0" Height="32" VerticalAlignment="Top" FontSize="12" Click="btnIndexReset_Click"/>
+        <Button x:Name="btnExcelFile" Content="Excel Dosyasını Seç" Width="Auto" Margin="5,209,210,0" Height="32" VerticalAlignment="Top" Click="btnExcelFile_Click" FontSize="12"/>
+        <Button x:Name="btnIndexReset" Content="Index Sıfırla" Width="Auto" Margin="5,254,210,0" Height="32" VerticalAlignment="Top" FontSize="12" Click="btnIndexReset_Click"/>
         <TextBox x:Name="tbxIndexNo" Margin="91,94,5,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="24"/>
         <Label x:Name="label1_Copy2" Content="Sıra:" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" Width="60" Height="22"/>
         <Label x:Name="label1_Copy3" Content="Excel Kolun:" HorizontalAlignment="Left" Margin="0,123,0,0" VerticalAlignment="Top" Width="83" Height="22"/>
         <ComboBox x:Name="cbxExcelColumn" Margin="91,123,8,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="tbxAdres" Margin="91,148,5,0" VerticalAlignment="Top" Height="24"/>
+        <Label x:Name="label1_Copy4" Content="Adres
+               :" HorizontalAlignment="Left" Margin="0,150,0,0" VerticalAlignment="Top" Width="60" Height="22"/>
 
     </Grid>
 </Window>
